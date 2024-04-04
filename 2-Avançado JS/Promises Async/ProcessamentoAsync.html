@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <button>Executar</button>
+
+    <script>
+      // Promise é um objeto usado para processamento assíncrono. Uma Promise (de "promessa") representa um valor que pode estar disponível agora, no futuro ou nunca.
+
+      // Uma Promise está em um destes estados:
+      // pending (pendente): Estado inicial, que não foi realizada nem rejeitada.
+      // fulfilled (realizada): sucesso na operação.
+      // rejected (rejeitado): falha na operação.
+
+      let count = 0;
+      function testPromise() {
+        const promiseCount = ++count;
+
+        console.log("sync started");
+
+        // Promise, classe no JS que espera uma função de "callback"
+        // resolve - É chamado quando tudo está correto
+        // reject - É chamado quando possui algum erro/problema
+
+        // PROMISE é feita para chamar uma função Async, função que vai executar não importa quanto tempo demore
+        new Promise((resolve, reject) => {
+          // Função de atraso
+          // setTimeout é uma função Async, para poder atrasar e ao terminar continuar o codigo
+          setTimeout(() => {
+            if (promiseCount % 2 == 0) {
+              // Verificação se o numero é par, com o resto zero na divisão
+              resolve(promiseCount); // Caso seja par
+            } else {
+              reject(promiseCount); // Caso seja ímpar
+            }
+          }, 1000);
+        })
+          // Quando a promice terminar, chama o then
+          // "value" do "then" vem do resolve
+          .then((value) => {
+            console.log(`async finished ${value}`);
+          })
+          // Quando a promice terminar, chama o catch caso dê errado
+          // "value" do "catch" vem do reject
+          .catch((value) => {
+            console.error("async error");
+          });
+
+        console.log("sync finished");
+      }
+
+      // Evento do botão
+      const buttonEl = document.querySelector("button");
+      buttonEl.addEventListener("click", testPromise);
+    </script>
+  </body>
+</html>

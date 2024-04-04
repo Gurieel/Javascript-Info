@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <!-- O endereço onde quer enviar as informações  -->
+    <form action="https://google.com/search" method="get">
+      <!-- É o titulo do campo para escrever  -->
+      <!-- "q" de "query", parametro que o google entende no /search  -->
+      <label for="q">* Busca</label>
+      <input type="text" name="q" />
+      <!-- P botão de entrega com o value que desejar  -->
+      <input type="submit" value="Pesquisar" />
+    </form>
+
+    <script>
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+
+      const formEl = document.querySelector("form");
+
+      // submit abaixo se refere a disparar o evento, diferente do submit acima
+      formEl.addEventListener("submit", (event) => {
+        // Pegar os valores do input
+        const queryValue = event.target.querySelector("input[name=q]").value;
+        console.log("queryValue", queryValue);
+
+        if (!queryValue) {
+          event.preventDefault(); // Caso nao tenha nada no input, cancela qualquer execução
+          alert("O campo busca é obrigatório.");
+        }
+      });
+    </script>
+  </body>
+</html>

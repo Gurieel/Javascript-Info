@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <button>Recuperar Dados</button>
+    <br />
+    <br />
+    <script>
+      const loadData = () => {
+        // Para construir a chamada AJAX, ela vai instanciar a classe fazer as chamadas remotas
+        const xhr = new XMLHttpRequest();
+
+        // Informar qual o modo e o endereço do que será utilizado
+        xhr.open("GET", "https://api.github.com/users/felipefontoura");
+        // Método que faz a chamada, para abrir a requisição/conecção com os dados
+        xhr.send(null);
+        // Quando ele terminar de fazer a requisição ele vai invocar a função de "callback" em "onreadystatechange"
+        xhr.onreadystatechange = () => {
+          // Caso tenha feito a requisição corretamente ele terá um "xhr.readyState === 4"
+          if (xhr.readyState === 4) {
+            // "res"irá trazer o JSON de todos os dados em "xhr.responseText"
+            // Usar .parse para pegar o formato JSON e transformar em um objeto
+            const res = JSON.parse(xhr.responseText);
+
+            // Após se tornar em objeto, poderá puxar qualquer parte dos dados
+            const name = res.name;
+            const avatarUrl = res.avatar_url;
+            const followers = res.followers;
+            const blogUrl = res.blog;
+
+            // console.log({ name, avatarUrl, followers, blogUrl })
+
+            // <img src="https://avatars.githubusercontent.com/u/281622?v=4" width="128" />
+            const avatarEl = document.createElement("img");
+            avatarEl.setAttribute("src", avatarUrl);
+            avatarEl.setAttribute("width", "128");
+            // console.log(avatarEl)
+
+            // <h1>Felipe Fontoura</h1>
+            const nameEl = document.createElement("h1");
+            nameEl.innerText = name;
+
+            // <p>Followers: 207</p>
+            const followersEl = document.createElement("p");
+            followersEl.innerText = `Followers: ${followers}`;
+
+            // <a href="https://devsamurai.com.br">devsamurai.com.br</a>
+            const blogEl = document.createElement("a");
+            blogEl.setAttribute("href", `https://${blogUrl}`);
+            blogEl.innerText = blogUrl;
+
+            document.body.appendChild(avatarEl);
+            document.body.appendChild(nameEl);
+            document.body.appendChild(followersEl);
+            document.body.appendChild(blogEl);
+          }
+        };
+      };
+
+      const buttonEl = document.querySelector("button");
+      buttonEl.addEventListener("click", loadData);
+    </script>
+  </body>
+</html>

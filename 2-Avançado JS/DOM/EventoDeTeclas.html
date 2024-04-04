@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <input type="text" />
+
+    <script>
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+
+      // keydown, quando a tecla é pressionada
+      // keyup, quando a tecla volta ao estado normal, não pressionada
+      const inputEl = document.querySelector("input[type=text]");
+
+      inputEl.addEventListener("keydown", (event) => {
+        // event.key = Tecla pressionada
+        // event.keyCode = Código da tabela ASCII
+        console.log("event", `${event.key} - ${event.keyCode}`);
+
+        if (event.keyCode === 13) {
+          // Codigo ASCII 13 é o Enter
+          alert(`Tecla ENTER pressionada - ${inputEl.value}`);
+          // Evento de enviar o texto, inputEl.value é todo o resultado digitado
+        }
+      });
+    </script>
+  </body>
+</html>
